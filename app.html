@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakers Trivia Game</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #552583;
+            color: #FDB927;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: #1c1c1c;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        hi {
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        .answers {
+            display: block;
+            width: 100px;
+            margin: 10px;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #FDB927;
+            color: #000;
+        }
+
+        .answers button:hover {
+            background-color: #e6a800;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .nav {
+            margin-top: 25px;
+        }
+
+        .nav a, .nav button {
+            color: #FDB927;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <hi>Lakers Trivia Game</hi>
+    <p>Test your knowledge of the Los Angeles Lakers!</p>
+
+    <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="answers" id="answers"></div>
+    </div>
+
+    <div class="score" id="score"></div>
+
+    <div class="nav">
+        <button onclick="restartGame()">Restart Game</button>
+        <br>
+        <a href="scratch.html">Back to Scratch Page</a>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "How many NBA Championships have the Lakers won?",
+            answers: ["15", "16", "17", "18"],
+            correct: 3
+        },
+        {
+            question: "Which Lakers player is nicknamed 'Magic'?",
+            answers: ["Kobe Bryant", "Earl Johnson", "LeBron James", "Shaquille O'Neal"],
+            correct: 2
+        },
+        {
+            question: "What year did the Lakers win their last championship?",
+            answers: ["2019", "2018", "2021","2020"],
+            correct: 4
+        },
+        {
+            question: "Who scored 81 points in a single game for the Lakers?",
+            answer: ["Shaquille O'Neal", "Kobe Bryant", "Kareem Abdul-Jabbar", "LeBron James"],
+            correct: 2
+        },
+        {
+            question: "Where did the Lakers originally playt before moving to Los Angeles?",
+            answers: ["Minneapolis", "Chicago", "Detroit", "Seattle"],
+            correct: 1
+        }
+    ];
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        document.getElementById('score').textContent = "";
+        const q = questions[currentQuestion];
+        document.getElementById('question').textContent = q.question;
+        const answersDiv = document.getElementById('answers');
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const button = document.createdElement('button');
+            button.textContent = answer;
+            button.onclick = () => checkAnswer(index);
+            answerDiv.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selected) {
+        if (selected === questions[currentQuestion].correct) {
+            score++;
+        }
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            document.getElementById('quiz').innerHTML = "";
+            document.getElementById('score').textContent = 'You scored ${score} out of ${questions.length}!';
+        }
+    }
+
+    function restartGame() {
+        currentQuestion = 0;
+        score = 0;
+        document.getElementById('quiz').innerHTML = '<div class=\"questions\" id=\"questions\"></div> <div class=\"answers\" id=\"answers\"></div>';
+        loadQuestion();
+    }
+
+    // Start Game
+    loadQuestion();
+
+</script>
+
+</body>
+</html>
